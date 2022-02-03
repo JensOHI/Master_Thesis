@@ -1,10 +1,10 @@
 # Estimate Human Stiffness, Damping, and Intention in a Collaborative Carrying Scenario - Master Thesis
-This is my Master Thesis done at the Southern Danish Univerity.
+This is my Master Thesis done at the Southern Danish University.
 
 
 # Setting up MATLAB
 Programs and packages (I have install to make it run):
-* MATLAB R2021b
+* MATLAB R2021b *(newer version should also work)*
 * Simulink
 * Simulink 3D Animation
 * Phase Array System Toolbox
