@@ -1,3 +1,5 @@
-.stxc
-.autosave
+.slxc
+.slx.autosave
 slprj/
+franka_robot_for_codegen.m
+ur10_robot_for_codegen.m
