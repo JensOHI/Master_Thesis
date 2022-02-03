@@ -24,3 +24,5 @@ Programs and packages (I have install to make it run):
 *All packages may not be necessary.*
 
 When opening the simulink file [scene.slx](MATLAB/scene.slx) go to MODELLING > Mode Explorer > scene > Model Workspace, then press browse and make sure [scene_parameters.m](MATLAB/scene_parameters.m) is chosen and finally press "Reinitalize from Source".
+
+To ensure that the correct environment file is chosen, double click on the VR Sink block, goto Simulation > Block Parameters... > browse, chose the [scene_environment.x3d](MATLAB/scene_environment.x3d) file. Press Apply and OK.

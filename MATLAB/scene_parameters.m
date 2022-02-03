@@ -1,6 +1,8 @@
 franka_robot = loadrobot("frankaEmikaPanda");
-writeAsFunction(franka_robot, "franka_robot_for_codegen")
 ur10_robot = loadrobot("universalUR10");
+
+writeAsFunction(franka_robot, "franka_robot_for_codegen");
+writeAsFunction(ur10_robot, "ur10_robot_for_codegen");
 
 
 K = 0;
