@@ -20,6 +20,7 @@ Programs and packages (I have install to make it run):
 * Image Processing Toolbox
 * DSP System Toolbox
 * Control System Toolbox
+* MATLAB Support for MinGW-w64 C/C++ Compiler *(I use MinGW64 Compiler (C) on Windows)*
 
 *All packages may not be necessary.*
 
