@@ -1,10 +1,26 @@
+% Loading robot models.
 franka_robot = loadrobot("frankaEmikaPanda");
 ur10_robot = loadrobot("universalUR10");
 
 writeAsFunction(franka_robot, "franka_robot_for_codegen");
 writeAsFunction(ur10_robot, "ur10_robot_for_codegen");
 
+% PD controller with gravity compensation.
+K_p_pd = eye(3);
+K_d_pd = eye(3);
 
+% Parameters for estimation of damping.
+b_c = 0;
+b_ub = 1;
+b_lb = -0.5;
+pd_x_pdd_min = -7e-3;
+pd_x_pdd_max = 7e-3;
+sensitivity_measure = 0.95;
+k_p = -log((1-sensitivity_measure)/(1+sensitivity_measure))/pd_x_pdd_max;
+k_n = -log((1+sensitivity_measure)/(1-sensitivity_measure))/pd_x_pdd_min;
+
+
+% Admittance controller: Mass, stiffness and damping matries.
 K = 0;
 
 dr = 1;
