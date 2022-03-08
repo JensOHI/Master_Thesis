@@ -1,12 +1,13 @@
 % Loading robot models.
 franka_robot = loadrobot("frankaEmikaPanda");
-ur10_robot = loadrobot("universalUR10");
+ur10_robot = loadrobot("universalUR10", "DataFormat", "row");
+ur10_robot.Gravity = [0 0 -9.82];
 
 writeAsFunction(franka_robot, "franka_robot_for_codegen");
 writeAsFunction(ur10_robot, "ur10_robot_for_codegen");
 
 % PD controller with gravity compensation.
-K_p_pd = eye(3);
+K_p_pd = eye(3)*4;
 K_d_pd = eye(3);
 
 % Parameters for estimation of damping.
