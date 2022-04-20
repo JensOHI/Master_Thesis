@@ -21,6 +21,16 @@ k_p = -log((1-sensitivity_measure)/(1+sensitivity_measure))/pd_x_pdd_max;
 k_n = -log((1+sensitivity_measure)/(1-sensitivity_measure))/pd_x_pdd_min;
 
 
+% Human Intention Predictor 
+n = 30; N = n; H_p = N; H_u = N; q = 1;
+number_of_dictionary_functions = 5;
+
+A_tilde = diag(gamrnd(10e-4, 10e-4, [1, N]));
+beta = gamrnd(10e-4, 10e-4);
+while beta <= 1e-100 % Making sure that beta is not zero
+    beta = gamrnd(10e-4, 10e-4);
+end
+
 % Admittance controller: Mass, stiffness and damping matries.
 K = 0;
 
