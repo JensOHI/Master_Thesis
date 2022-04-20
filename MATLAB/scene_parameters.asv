@@ -25,11 +25,8 @@ k_n = -log((1+sensitivity_measure)/(1-sensitivity_measure))/pd_x_pdd_min;
 n = 30; N = n; H_p = N; H_u = N; q = 1;
 number_of_dictionary_functions = 5;
 
-a = 10e-4;
-b = 10e-4;
-c = 10e-4;
-d = 10e-4;
-A_tilde = diag(gamrnd(a, b, [1, N]));
+a = 10e- = c = d = 10e-4;
+A_tilde = diag(gamrnd(a, b-4, [1, N]));
 beta = gamrnd(c,d);
 while beta <= 1e-100 % Making sure that beta is not zero
     beta = gamrnd(c, d);
