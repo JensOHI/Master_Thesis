@@ -86,3 +86,14 @@ D_p = ...
   [(2*sqrt(mpx*kpx))*dr 0 0;
    0 (2*sqrt(mpy*kpy))*dr 0;
    0 0 (2*sqrt(mpz*kpz))*dr];
+
+
+% Minimum Jerk
+data_mj = load("min_jerk_traj.mat");
+position_mj = data_mj.Pj3;
+force_mj = 5 * data_mj.Aj3;
+
+
+% ARX model
+minimum_data_length_arx = 10;
+prediction_length_arx = 10;
