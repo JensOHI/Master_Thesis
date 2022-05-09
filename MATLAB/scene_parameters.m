@@ -6,6 +6,8 @@ ur10_robot.Gravity = [0 0 -9.82];
 writeAsFunction(franka_robot, "franka_robot_for_codegen");
 writeAsFunction(ur10_robot, "ur10_robot_for_codegen");
 
+samples_per_second = 500;
+
 % PD controller with gravity compensation.
 K_p_pd = eye(3)*4;
 K_d_pd = eye(3);
@@ -90,10 +92,13 @@ D_p = ...
 
 % Minimum Jerk
 data_mj = load("min_jerk_traj.mat");
-position_mj = data_mj.Pj3;
-force_mj = 5 * data_mj.Aj3;
+position_mj = data_mj.Pj1;
+force_mj = 5 * data_mj.Aj1;
 
 
 % ARX model
 minimum_data_length_arx = 10;
 prediction_length_arx = 10;
+
+% Stiffness Estimation
+samples_per_se = 100;
