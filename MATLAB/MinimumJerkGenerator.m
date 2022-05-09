@@ -79,7 +79,8 @@ ACCj=piecewise(T(i)<=t<T(i+1),AAj(:,i),ACCj); %Piecewise ACCELERATION trajectory
 end
 end
  
-t=T(1):1e-2:T(n+1);
+% t=T(1):1e-2:T(n+1);
+t=T(1):1/500:T(n+1);
 Pj=double(subs(POSj)); %POSITION trajectory (NUMERICAL VALUES AFTER SUB TIME) ... REMOVE the semicolon if you want to display 
 Vj=double(subs(VELj)); %VELOCITY trajectory (NUMERICAL VALUES AFTER SUB TIME) ... REMOVE the semicolon if you want to display
 Aj=double(subs(ACCj)); %ACCELERATION trajectory (NUMERICAL VALUES AFTER SUB TIME) ... REMOVE the semicolon if you want to display
