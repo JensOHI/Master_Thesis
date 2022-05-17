@@ -1,0 +1,3 @@
+numpy
+scipy
+ur_rtde

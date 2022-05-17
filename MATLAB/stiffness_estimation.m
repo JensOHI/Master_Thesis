@@ -6,26 +6,29 @@ Ts = 1/Fs;
 
 data = load("min_jerk_traj.mat");
 
-force_original = 5 * data.Aj4(1,:);
-position_original = data.Pj4(1,:);
+force_original = 3 * data.Aj3(1,:);
+position_original = data.Pj3(1,:);
 
-x0 = [0.3118;
-    9.7407;
-    9.8793;
-  124.7035;
-  124.7080];
+% x0 = [0.3118;
+%     9.7407;
+%     9.8793;
+%   124.7035;
+%   124.7080];
+x0 = [0.3; 3; 6; 400; 100];
+
 xhats = [];
-start_step = 100;
+start_step = 500;
 prev_i = 1;
-for i=start_step:start_step:max(size(position_original))
-    force = force_original(prev_i:i);
-    position = position_original(prev_i:i);
-    xhat = estimate_parmeters(force, position, x0, Fs)
-    x0 = xhat;
-    xhats = [xhats;xhat'];
-    prev_i = i;
-end
-xhats
+% for i=start_step:start_step:max(size(position_original))
+%     force = force_original(prev_i:i);
+%     position = position_original(prev_i:i);
+%     xhat = estimate_parameters(force, position, x0, Fs);
+%     x0 = xhat;
+%     xhats = [xhats;xhat'];
+%     prev_i = i;
+% end
+xhat = estimate_parameters(force_original, position_original, x0, Fs)
+xhats = xhat'
 %%
 figure(1)
 subplot(211)

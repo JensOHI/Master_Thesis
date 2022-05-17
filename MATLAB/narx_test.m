@@ -1,58 +1,53 @@
 clc; clear; close all;
 
-data = load("min_jerk_traj.mat");
+data = load("data_set_of_random_min_jerk_traj.mat");
 mass = 5;
-forces = {mass*data.Aj1,mass*data.Aj2,mass*data.Aj3,mass*data.Aj4}';
-u_mul = catsamples(con2seq(forces{1}(1,:)), con2seq(forces{1}(2,:)), con2seq(forces{1}(3,:)), con2seq(forces{2}(1,:)), con2seq(forces{2}(2,:)), con2seq(forces{2}(3,:)), con2seq(forces{3}(1,:)), con2seq(forces{2}(2,:)), con2seq(forces{3}(3,:)), con2seq(forces{4}(1,:)), con2seq(forces{4}(2,:)), con2seq(forces{4}(3,:)),'pad');
-y_mul = catsamples(con2seq(data.Pj1(1,:)), con2seq(data.Pj1(2,:)), con2seq(data.Pj1(3,:)), con2seq(data.Pj2(1,:)), con2seq(data.Pj2(2,:)), con2seq(data.Pj2(3,:)), con2seq(data.Pj3(1,:)), con2seq(data.Pj3(2,:)), con2seq(data.Pj3(3,:)), con2seq(data.Pj4(1,:)), con2seq(data.Pj4(2,:)), con2seq(data.Pj4(3,:)), 'pad');
-% axis = 1;
-% u = con2seq(force);
-% y = con2seq(position);
-% training_length = max(size(position));
-% u_train = u(1:training_length);
-% y_train = y(1:training_length);
+positions = {};
+forces = {};
+for nr=1:100
+    pos_name = "Pj"+num2str(nr);
+    acc_name = "Aj"+num2str(nr);
+    pos = getfield(data, pos_name);
+    acc = getfield(data, acc_name);
+    for axis=1:3
+        positions{end+1} = pos(axis,:);
+        forces{end+1} = mass*acc(axis,:);
+    end
+end
+u_mul=catsamples(con2seq(forces{1}),con2seq(forces{2}),con2seq(forces{3}),con2seq(forces{4}),con2seq(forces{5}),con2seq(forces{6}),con2seq(forces{7}),con2seq(forces{8}),con2seq(forces{9}),con2seq(forces{10}),con2seq(forces{11}),con2seq(forces{12}),con2seq(forces{13}),con2seq(forces{14}),con2seq(forces{15}),con2seq(forces{16}),con2seq(forces{17}),con2seq(forces{18}),con2seq(forces{19}),con2seq(forces{20}),con2seq(forces{21}),con2seq(forces{22}),con2seq(forces{23}),con2seq(forces{24}),con2seq(forces{25}),con2seq(forces{26}),con2seq(forces{27}),con2seq(forces{28}),con2seq(forces{29}),con2seq(forces{30}),con2seq(forces{31}),con2seq(forces{32}),con2seq(forces{33}),con2seq(forces{34}),con2seq(forces{35}),con2seq(forces{36}),con2seq(forces{37}),con2seq(forces{38}),con2seq(forces{39}),con2seq(forces{40}),con2seq(forces{41}),con2seq(forces{42}),con2seq(forces{43}),con2seq(forces{44}),con2seq(forces{45}),con2seq(forces{46}),con2seq(forces{47}),con2seq(forces{48}),con2seq(forces{49}),con2seq(forces{50}),con2seq(forces{51}),con2seq(forces{52}),con2seq(forces{53}),con2seq(forces{54}),con2seq(forces{55}),con2seq(forces{56}),con2seq(forces{57}),con2seq(forces{58}),con2seq(forces{59}),con2seq(forces{60}),con2seq(forces{61}),con2seq(forces{62}),con2seq(forces{63}),con2seq(forces{64}),con2seq(forces{65}),con2seq(forces{66}),con2seq(forces{67}),con2seq(forces{68}),con2seq(forces{69}),con2seq(forces{70}),con2seq(forces{71}),con2seq(forces{72}),con2seq(forces{73}),con2seq(forces{74}),con2seq(forces{75}),con2seq(forces{76}),con2seq(forces{77}),con2seq(forces{78}),con2seq(forces{79}),con2seq(forces{80}),con2seq(forces{81}),con2seq(forces{82}),con2seq(forces{83}),con2seq(forces{84}),con2seq(forces{85}),con2seq(forces{86}),con2seq(forces{87}),con2seq(forces{88}),con2seq(forces{89}),con2seq(forces{90}),con2seq(forces{91}),con2seq(forces{92}),con2seq(forces{93}),con2seq(forces{94}),con2seq(forces{95}),con2seq(forces{96}),con2seq(forces{97}),con2seq(forces{98}),con2seq(forces{99}),con2seq(forces{100}),con2seq(forces{101}),con2seq(forces{102}),con2seq(forces{103}),con2seq(forces{104}),con2seq(forces{105}),con2seq(forces{106}),con2seq(forces{107}),con2seq(forces{108}),con2seq(forces{109}),con2seq(forces{110}),con2seq(forces{111}),con2seq(forces{112}),con2seq(forces{113}),con2seq(forces{114}),con2seq(forces{115}),con2seq(forces{116}),con2seq(forces{117}),con2seq(forces{118}),con2seq(forces{119}),con2seq(forces{120}),con2seq(forces{121}),con2seq(forces{122}),con2seq(forces{123}),con2seq(forces{124}),con2seq(forces{125}),con2seq(forces{126}),con2seq(forces{127}),con2seq(forces{128}),con2seq(forces{129}),con2seq(forces{130}),con2seq(forces{131}),con2seq(forces{132}),con2seq(forces{133}),con2seq(forces{134}),con2seq(forces{135}),con2seq(forces{136}),con2seq(forces{137}),con2seq(forces{138}),con2seq(forces{139}),con2seq(forces{140}),con2seq(forces{141}),con2seq(forces{142}),con2seq(forces{143}),con2seq(forces{144}),con2seq(forces{145}),con2seq(forces{146}),con2seq(forces{147}),con2seq(forces{148}),con2seq(forces{149}),con2seq(forces{150}),con2seq(forces{151}),con2seq(forces{152}),con2seq(forces{153}),con2seq(forces{154}),con2seq(forces{155}),con2seq(forces{156}),con2seq(forces{157}),con2seq(forces{158}),con2seq(forces{159}),con2seq(forces{160}),con2seq(forces{161}),con2seq(forces{162}),con2seq(forces{163}),con2seq(forces{164}),con2seq(forces{165}),con2seq(forces{166}),con2seq(forces{167}),con2seq(forces{168}),con2seq(forces{169}),con2seq(forces{170}),con2seq(forces{171}),con2seq(forces{172}),con2seq(forces{173}),con2seq(forces{174}),con2seq(forces{175}),con2seq(forces{176}),con2seq(forces{177}),con2seq(forces{178}),con2seq(forces{179}),con2seq(forces{180}),con2seq(forces{181}),con2seq(forces{182}),con2seq(forces{183}),con2seq(forces{184}),con2seq(forces{185}),con2seq(forces{186}),con2seq(forces{187}),con2seq(forces{188}),con2seq(forces{189}),con2seq(forces{190}),con2seq(forces{191}),con2seq(forces{192}),con2seq(forces{193}),con2seq(forces{194}),con2seq(forces{195}),con2seq(forces{196}),con2seq(forces{197}),con2seq(forces{198}),con2seq(forces{199}),con2seq(forces{200}),con2seq(forces{201}),con2seq(forces{202}),con2seq(forces{203}),con2seq(forces{204}),con2seq(forces{205}),con2seq(forces{206}),con2seq(forces{207}),con2seq(forces{208}),con2seq(forces{209}),con2seq(forces{210}),con2seq(forces{211}),con2seq(forces{212}),con2seq(forces{213}),con2seq(forces{214}),con2seq(forces{215}),con2seq(forces{216}),con2seq(forces{217}),con2seq(forces{218}),con2seq(forces{219}),con2seq(forces{220}),con2seq(forces{221}),con2seq(forces{222}),con2seq(forces{223}),con2seq(forces{224}),con2seq(forces{225}),con2seq(forces{226}),con2seq(forces{227}),con2seq(forces{228}),con2seq(forces{229}),con2seq(forces{230}),con2seq(forces{231}),con2seq(forces{232}),con2seq(forces{233}),con2seq(forces{234}),con2seq(forces{235}),con2seq(forces{236}),con2seq(forces{237}),con2seq(forces{238}),con2seq(forces{239}),con2seq(forces{240}),con2seq(forces{241}),con2seq(forces{242}),con2seq(forces{243}),con2seq(forces{244}),con2seq(forces{245}),con2seq(forces{246}),con2seq(forces{247}),con2seq(forces{248}),con2seq(forces{249}),con2seq(forces{250}),con2seq(forces{251}),con2seq(forces{252}),con2seq(forces{253}),con2seq(forces{254}),con2seq(forces{255}),con2seq(forces{256}),con2seq(forces{257}),con2seq(forces{258}),con2seq(forces{259}),con2seq(forces{260}),con2seq(forces{261}),con2seq(forces{262}),con2seq(forces{263}),con2seq(forces{264}),con2seq(forces{265}),con2seq(forces{266}),con2seq(forces{267}),con2seq(forces{268}),con2seq(forces{269}),con2seq(forces{270}),con2seq(forces{271}),con2seq(forces{272}),con2seq(forces{273}),con2seq(forces{274}),con2seq(forces{275}),con2seq(forces{276}),con2seq(forces{277}),con2seq(forces{278}),con2seq(forces{279}),con2seq(forces{280}),con2seq(forces{281}),con2seq(forces{282}),con2seq(forces{283}),con2seq(forces{284}),con2seq(forces{285}),con2seq(forces{286}),con2seq(forces{287}),con2seq(forces{288}),con2seq(forces{289}),con2seq(forces{290}),con2seq(forces{291}),con2seq(forces{292}),con2seq(forces{293}),con2seq(forces{294}),con2seq(forces{295}),con2seq(forces{296}),con2seq(forces{297}),con2seq(forces{298}),con2seq(forces{299}),con2seq(forces{300}),'pad');
+y_mul=catsamples(con2seq(positions{1}),con2seq(positions{2}),con2seq(positions{3}),con2seq(positions{4}),con2seq(positions{5}),con2seq(positions{6}),con2seq(positions{7}),con2seq(positions{8}),con2seq(positions{9}),con2seq(positions{10}),con2seq(positions{11}),con2seq(positions{12}),con2seq(positions{13}),con2seq(positions{14}),con2seq(positions{15}),con2seq(positions{16}),con2seq(positions{17}),con2seq(positions{18}),con2seq(positions{19}),con2seq(positions{20}),con2seq(positions{21}),con2seq(positions{22}),con2seq(positions{23}),con2seq(positions{24}),con2seq(positions{25}),con2seq(positions{26}),con2seq(positions{27}),con2seq(positions{28}),con2seq(positions{29}),con2seq(positions{30}),con2seq(positions{31}),con2seq(positions{32}),con2seq(positions{33}),con2seq(positions{34}),con2seq(positions{35}),con2seq(positions{36}),con2seq(positions{37}),con2seq(positions{38}),con2seq(positions{39}),con2seq(positions{40}),con2seq(positions{41}),con2seq(positions{42}),con2seq(positions{43}),con2seq(positions{44}),con2seq(positions{45}),con2seq(positions{46}),con2seq(positions{47}),con2seq(positions{48}),con2seq(positions{49}),con2seq(positions{50}),con2seq(positions{51}),con2seq(positions{52}),con2seq(positions{53}),con2seq(positions{54}),con2seq(positions{55}),con2seq(positions{56}),con2seq(positions{57}),con2seq(positions{58}),con2seq(positions{59}),con2seq(positions{60}),con2seq(positions{61}),con2seq(positions{62}),con2seq(positions{63}),con2seq(positions{64}),con2seq(positions{65}),con2seq(positions{66}),con2seq(positions{67}),con2seq(positions{68}),con2seq(positions{69}),con2seq(positions{70}),con2seq(positions{71}),con2seq(positions{72}),con2seq(positions{73}),con2seq(positions{74}),con2seq(positions{75}),con2seq(positions{76}),con2seq(positions{77}),con2seq(positions{78}),con2seq(positions{79}),con2seq(positions{80}),con2seq(positions{81}),con2seq(positions{82}),con2seq(positions{83}),con2seq(positions{84}),con2seq(positions{85}),con2seq(positions{86}),con2seq(positions{87}),con2seq(positions{88}),con2seq(positions{89}),con2seq(positions{90}),con2seq(positions{91}),con2seq(positions{92}),con2seq(positions{93}),con2seq(positions{94}),con2seq(positions{95}),con2seq(positions{96}),con2seq(positions{97}),con2seq(positions{98}),con2seq(positions{99}),con2seq(positions{100}),con2seq(positions{101}),con2seq(positions{102}),con2seq(positions{103}),con2seq(positions{104}),con2seq(positions{105}),con2seq(positions{106}),con2seq(positions{107}),con2seq(positions{108}),con2seq(positions{109}),con2seq(positions{110}),con2seq(positions{111}),con2seq(positions{112}),con2seq(positions{113}),con2seq(positions{114}),con2seq(positions{115}),con2seq(positions{116}),con2seq(positions{117}),con2seq(positions{118}),con2seq(positions{119}),con2seq(positions{120}),con2seq(positions{121}),con2seq(positions{122}),con2seq(positions{123}),con2seq(positions{124}),con2seq(positions{125}),con2seq(positions{126}),con2seq(positions{127}),con2seq(positions{128}),con2seq(positions{129}),con2seq(positions{130}),con2seq(positions{131}),con2seq(positions{132}),con2seq(positions{133}),con2seq(positions{134}),con2seq(positions{135}),con2seq(positions{136}),con2seq(positions{137}),con2seq(positions{138}),con2seq(positions{139}),con2seq(positions{140}),con2seq(positions{141}),con2seq(positions{142}),con2seq(positions{143}),con2seq(positions{144}),con2seq(positions{145}),con2seq(positions{146}),con2seq(positions{147}),con2seq(positions{148}),con2seq(positions{149}),con2seq(positions{150}),con2seq(positions{151}),con2seq(positions{152}),con2seq(positions{153}),con2seq(positions{154}),con2seq(positions{155}),con2seq(positions{156}),con2seq(positions{157}),con2seq(positions{158}),con2seq(positions{159}),con2seq(positions{160}),con2seq(positions{161}),con2seq(positions{162}),con2seq(positions{163}),con2seq(positions{164}),con2seq(positions{165}),con2seq(positions{166}),con2seq(positions{167}),con2seq(positions{168}),con2seq(positions{169}),con2seq(positions{170}),con2seq(positions{171}),con2seq(positions{172}),con2seq(positions{173}),con2seq(positions{174}),con2seq(positions{175}),con2seq(positions{176}),con2seq(positions{177}),con2seq(positions{178}),con2seq(positions{179}),con2seq(positions{180}),con2seq(positions{181}),con2seq(positions{182}),con2seq(positions{183}),con2seq(positions{184}),con2seq(positions{185}),con2seq(positions{186}),con2seq(positions{187}),con2seq(positions{188}),con2seq(positions{189}),con2seq(positions{190}),con2seq(positions{191}),con2seq(positions{192}),con2seq(positions{193}),con2seq(positions{194}),con2seq(positions{195}),con2seq(positions{196}),con2seq(positions{197}),con2seq(positions{198}),con2seq(positions{199}),con2seq(positions{200}),con2seq(positions{201}),con2seq(positions{202}),con2seq(positions{203}),con2seq(positions{204}),con2seq(positions{205}),con2seq(positions{206}),con2seq(positions{207}),con2seq(positions{208}),con2seq(positions{209}),con2seq(positions{210}),con2seq(positions{211}),con2seq(positions{212}),con2seq(positions{213}),con2seq(positions{214}),con2seq(positions{215}),con2seq(positions{216}),con2seq(positions{217}),con2seq(positions{218}),con2seq(positions{219}),con2seq(positions{220}),con2seq(positions{221}),con2seq(positions{222}),con2seq(positions{223}),con2seq(positions{224}),con2seq(positions{225}),con2seq(positions{226}),con2seq(positions{227}),con2seq(positions{228}),con2seq(positions{229}),con2seq(positions{230}),con2seq(positions{231}),con2seq(positions{232}),con2seq(positions{233}),con2seq(positions{234}),con2seq(positions{235}),con2seq(positions{236}),con2seq(positions{237}),con2seq(positions{238}),con2seq(positions{239}),con2seq(positions{240}),con2seq(positions{241}),con2seq(positions{242}),con2seq(positions{243}),con2seq(positions{244}),con2seq(positions{245}),con2seq(positions{246}),con2seq(positions{247}),con2seq(positions{248}),con2seq(positions{249}),con2seq(positions{250}),con2seq(positions{251}),con2seq(positions{252}),con2seq(positions{253}),con2seq(positions{254}),con2seq(positions{255}),con2seq(positions{256}),con2seq(positions{257}),con2seq(positions{258}),con2seq(positions{259}),con2seq(positions{260}),con2seq(positions{261}),con2seq(positions{262}),con2seq(positions{263}),con2seq(positions{264}),con2seq(positions{265}),con2seq(positions{266}),con2seq(positions{267}),con2seq(positions{268}),con2seq(positions{269}),con2seq(positions{270}),con2seq(positions{271}),con2seq(positions{272}),con2seq(positions{273}),con2seq(positions{274}),con2seq(positions{275}),con2seq(positions{276}),con2seq(positions{277}),con2seq(positions{278}),con2seq(positions{279}),con2seq(positions{280}),con2seq(positions{281}),con2seq(positions{282}),con2seq(positions{283}),con2seq(positions{284}),con2seq(positions{285}),con2seq(positions{286}),con2seq(positions{287}),con2seq(positions{288}),con2seq(positions{289}),con2seq(positions{290}),con2seq(positions{291}),con2seq(positions{292}),con2seq(positions{293}),con2seq(positions{294}),con2seq(positions{295}),con2seq(positions{296}),con2seq(positions{297}),con2seq(positions{298}),con2seq(positions{299}),con2seq(positions{300}),'pad');
+% data = load("min_jerk_traj.mat");
+% 
+% forces = {mass*data.Aj1,mass*data.Aj2,mass*data.Aj3,mass*data.Aj4}';
+% u_mul = catsamples(con2seq(forces{1}(1,:)), con2seq(forces{1}(2,:)), con2seq(forces{1}(3,:)), con2seq(forces{2}(1,:)), con2seq(forces{2}(2,:)), con2seq(forces{2}(3,:)), con2seq(forces{3}(1,:)), con2seq(forces{2}(2,:)), con2seq(forces{3}(3,:)), con2seq(forces{4}(1,:)), con2seq(forces{4}(2,:)), con2seq(forces{4}(3,:)),'pad');
+% y_mul = catsamples(con2seq(data.Pj1(1,:)), con2seq(data.Pj1(2,:)), con2seq(data.Pj1(3,:)), con2seq(data.Pj2(1,:)), con2seq(data.Pj2(2,:)), con2seq(data.Pj2(3,:)), con2seq(data.Pj3(1,:)), con2seq(data.Pj3(2,:)), con2seq(data.Pj3(3,:)), con2seq(data.Pj4(1,:)), con2seq(data.Pj4(2,:)), con2seq(data.Pj4(3,:)), 'pad');
 
-% u_predict = u(training_length+1:end);
-% u_predict_range = [1, max(size(data.Aj1))];%[max(size(data.Aj1))+max(size(data.Aj2)), max(size(data.Aj1))+max(size(data.Aj2))+max(size(data.Aj3))]
-% u_predict = u(u_predict_range(1):u_predict_range(2));
-
-narx_net_open = narxnet(1:2,1:2,10);
+narx_net_open = narxnet(1:2,1:2,50);
+narx_net_open.trainParam.epochs = 100;
 % narx_net_open.divideFcn = '';
-% narx_net_open.trainParam.min_grad = 1e-10;
+narx_net_open.trainParam.min_grad = 1e-10;
 % narx_net_open.trainFcn = 'trainscg';
 
 [Xs,Xi,Ai,Ts] = preparets(narx_net_open,u_mul,{},y_mul);
 
 narx_net_open = train(narx_net_open,Xs,Ts,Xi,Ai);
+
+% [Xs,Xi,Ai,Ts] = preparets(narx_net_open,con2seq(forces{1}(1,1:200)),{},con2seq(data.Pj1(1,1:200)));
+% narx_net_open = train(narx_net_open,Xs,Ts,Xi,Ai);
+
 % view(narx_net_open)
 %% 
 % [Y,Xf,Af] = narx_net_open(Xs,Xi,Ai);
 % perf = perform(narx_net_open,Ts,Y);
+% narx_net_closed= closeloop(narx_net_open,Xf,Af);
 narx_net_closed= closeloop(narx_net_open);
-
+% narx_net_closed = removedelay(narx_net_closed);
 % [xc,xic,aic,tc] = preparets(narx_net_closed,forces{1},{},con2seq(data.Pj1));
 % y_predictions = narx_net_closed(xc, xic, aic);
-y_predictions = narx_net_closed(con2seq(forces{1}(1,:)));
+test_data = load("min_jerk_traj.mat");
+y_predictions = narx_net_closed(con2seq(mass*test_data.Aj1(1,:)));
 y_predictions_mat = cell2mat(y_predictions);
 y = iddata(y_predictions_mat', [], 1/500, "Tstart", 0);
-% y1 = iddata(y_predictions_mat(1,:)', [], 1/500, "Tstart", 0);
-% y2 = iddata(y_predictions_mat(2,:)', [], 1/500, "Tstart", 0);
-% y3 = iddata(y_predictions_mat(3,:)', [], 1/500, "Tstart", 0);
-gt = iddata(data.Pj1(1,:)', [], 1/500, "Tstart", 0);
-% gt1 = iddata(data.Pj1(1,:)', [], 1/500, "Tstart", 0);
-% gt2 = iddata(data.Pj1(2,:)', [], 1/500, "Tstart", 0);
-% gt3 = iddata(data.Pj1(3,:)', [], 1/500, "Tstart", 0);
-% plot(y1,y2,y3, gt1, gt2, gt3)
-% legend(["Prediction - Axis 1","Prediction - Axis 2","Prediction - Axis 3","Ground truth - Axis 1","Ground truth - Axis 2","Ground truth - Axis 3"],"Location", "best")
+gt = iddata(test_data.Pj1(1,:)', [], 1/500, "Tstart", 0);
 plot(gt, y)
-
-
-% y_train_mat = cell2mat(y_train)';
-% y_predictions_mat = cell2mat(y_predictions)';
-% y_train_iddata = iddata(y_train_mat,[], 1, "Tstart", 0);
-% ground_truth_data = cell2mat(y);
-% ground_truth = iddata(ground_truth_data(u_predict_range(1):u_predict_range(2))', [], 1, "Tstart", 0);
-% y_predictions_iddata = iddata(y_predictions_mat, [], 1, "Tstart", 0);
-% plot( ground_truth, y_predictions_iddata)
-% legend({"Ground truth", "Prediction"}, "Location", "best")
-% plot(cell2mat(y_predictions), '.')
+legend(["Ground truth", "Prediction"], "Location", "best")

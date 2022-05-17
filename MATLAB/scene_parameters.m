@@ -1,7 +1,23 @@
+% Minimum Jerk
+data_mj = load("min_jerk_traj.mat");
+position_mj = data_mj.Pj1;
+force_mj = 5 * data_mj.Aj1;
+
+% ARX model
+minimum_data_length_arx = 20;
+prediction_length_arx = 20;
+
+% Stiffness Estimation
+samples_per_se = 100;
+
 % Loading robot models.
 franka_robot = loadrobot("frankaEmikaPanda");
 ur10_robot = loadrobot("universalUR10", "DataFormat", "row");
 ur10_robot.Gravity = [0 0 -9.82];
+
+ik = inverseKinematics('RigidBodyTree',ur10_robot);
+[configSoln,solnInfo] = ik('tool0',[eul2rotm([pi/2 0 0], "xyz"), position_mj(:,1);0 0 0 1],[0.25 0.25 0.25 1 1 1],ur10_robot.homeConfiguration);
+
 
 writeAsFunction(franka_robot, "franka_robot_for_codegen");
 writeAsFunction(ur10_robot, "ur10_robot_for_codegen");
@@ -9,8 +25,8 @@ writeAsFunction(ur10_robot, "ur10_robot_for_codegen");
 samples_per_second = 500;
 
 % PD controller with gravity compensation.
-K_p_pd = eye(3)*4;
-K_d_pd = eye(3);
+K_p_pd = eye(6)*1;
+K_d_pd = eye(6)*1;
 
 % Parameters for estimation of damping.
 b_c = 0;
@@ -90,15 +106,4 @@ D_p = ...
    0 0 (2*sqrt(mpz*kpz))*dr];
 
 
-% Minimum Jerk
-data_mj = load("min_jerk_traj.mat");
-position_mj = data_mj.Pj1;
-force_mj = 5 * data_mj.Aj1;
 
-
-% ARX model
-minimum_data_length_arx = 10;
-prediction_length_arx = 10;
-
-% Stiffness Estimation
-samples_per_se = 100;
