@@ -1,6 +1,6 @@
 clc; clear; close all;
-nr = "4";
-data = readtable("physical_traj_"+nr+".csv");
+
+data = readtable("physical_traj_1.csv");
 t = 0:1/500:max(size(data.pos_x))/500;
 t = t(1:max(size(data.pos_x)));
 
@@ -36,9 +36,9 @@ title("Force - z-axis");
 xlabel("Time [s]")
 ylabel("Force [N]")
 
-set(findobj(gcf,'type','axes'), "FontSize", 30)
-sgtitle("Physical Trajectory "+nr, "FontSize", 50)
-saveFigureAsPDF(gcf, "../figures/physical_trajectory_"+nr)
+set(findobj(gcf,'type','axes'), "FontSiz")
+sgtitle("Physical Trajectory 1")
+saveFigureAsPDF(gcf, "../figures/physical_trajectory_1")
 close all;
 % subplot(3,3,3)
 % plot(data.ori_x)

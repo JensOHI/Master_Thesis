@@ -5,14 +5,16 @@ function [cost] = cost_function(xhat, H_exp, weight_function, f, Q, R)
     
     M = xhat(1);
     D1 = xhat(2);
-    D2 = xhat(3);
-    K1 = xhat(4);
-    K2 = xhat(5);
+%     D2 = xhat(3);
+    K1 = xhat(3);
+%     K2 = xhat(5);
     
 %     data = load('mssdd_sim.mat');
 
-    tf_nume = [M, (D1 + D2), (K1 + K2)];
-    tf_deno = [D1 * M, (D1 * D2 + K1 * M), (D2 * K1 + D1 * K2), K1 * K2 + eps];
+%     tf_nume = [M, (D1 + D2), (K1 + K2)];
+%     tf_deno = [D1 * M, (D1 * D2 + K1 * M), (D2 * K1 + D1 * K2), K1 * K2 + eps];
+    tf_nume = [1];
+    tf_deno = [M, D1, K1 + eps];
     
 %     xhat;
     H_arm = tf(tf_nume, tf_deno);

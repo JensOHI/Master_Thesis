@@ -6,15 +6,18 @@ Ts = 1/Fs;
 
 data = load("min_jerk_traj.mat");
 
-force_original = 3 * data.Aj3(1,:);
-position_original = data.Pj3(1,:);
+force_original = 3 * data.Aj1(1,:);
+velocity_original = data.Vj1(1,:);
+position_original = data.Pj1(1,:);
+t_original = data.t1;
 
 % x0 = [0.3118;
 %     9.7407;
 %     9.8793;
 %   124.7035;
 %   124.7080];
-x0 = [0.3; 3; 6; 400; 100];
+% x0 = [0.3; 3; 6; 400; 100];
+x0 = [0.3, 3, 400];
 
 xhats = [];
 start_step = 500;
@@ -29,8 +32,18 @@ prev_i = 1;
 % end
 xhat = estimate_parameters(force_original, position_original, x0, Fs)
 xhats = xhat'
+
+%% Validate for a mass-spring-damper system
+expected_force = msd_system(position_original, velocity_original, xhats(3), xhats(2));
+figure('WindowState', 'maximized')
+hold on;
+plot(t_original, force_original);
+plot(t_original, expected_force);
+legend(["Original", "Expected"], "Location", "best")
+hold off;
+
 %%
-figure(1)
+figure('WindowState', 'maximized')
 subplot(211)
 plot(position_original)
 title("Position")
@@ -42,7 +55,7 @@ D1 = iddata(xhats(:,2),[],1/500);
 D2 = iddata(xhats(:,3),[],1/500);
 K1 = iddata(xhats(:,4),[],1/500);
 K2 = iddata(xhats(:,5),[],1/500);
-figure(2)
+figure('WindowState', 'maximized')
 subplot(321)
 plot(M, 'k--')
 title("Mass")
