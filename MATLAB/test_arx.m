@@ -14,18 +14,22 @@
 % plot(Pj_mj(1,:))
 % legend("Prediction", "Ground truth")
 clc; clear; close all;
-data = load("min_jerk_traj.mat");
-Pj_mj = data.Pj1;
-forces_mj = 5*data.Aj1;
-data_length = 10;
-prediction_length = 10;
+% data = load("min_jerk_traj.mat");
+% Pj_mj = data.Pj1;
+% forces_mj = 5*data.Aj1;
+nr = 1;
+data = readtable("../record_trajectory/physical_traj_"+num2str(nr)+".csv");
+Pj_mj = [data.pos_x'; data.pos_y'; data.pos_z'];
+forces_mj = [data.f_x'; data.f_y'; data.f_z'];
+data_length = 20;
+prediction_length = 20;
 for axis=1:3
     test_data = iddata(Pj_mj(axis, 1:data_length)', forces_mj(axis, 1:data_length)', 1/500);
     yf_sds = zeros(data_length,1);
     for i=data_length:prediction_length:max(size(Pj_mj))-prediction_length
         
         
-        test_sys = arx(test_data, [4 1 1]);
+        test_sys = arx(test_data, [5 1 1]);
         future_inputs = forces_mj(axis,i:i+prediction_length)';
         future_prediction_length = max(size(future_inputs));
         [yf,x0,sysf,yf_sd,x,x_sd] = forecast(test_sys, test_data, future_prediction_length, future_inputs);

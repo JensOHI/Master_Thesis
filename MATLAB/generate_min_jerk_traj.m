@@ -22,7 +22,7 @@ positions = {};
 times = {};
 lower_bound = -0.5;
 upper_bound = 0.5;
-for i=1:100
+for i=1:500
     r = randi([2, 5]);
 
     % Generate waypoints
@@ -59,5 +59,5 @@ for i=1:positions_size(2)
     struct_save.("Vj"+num2str(i)) = Vj(:,1:end-1);
     struct_save.("Aj"+num2str(i)) = Aj(:,1:end-1);
     struct_save.("t"+num2str(i)) = t(:,1:end-1);
-    save("data_set_of_random_min_jerk_traj.mat", "-struct", "struct_save")
 end
+save("data_set_of_random_min_jerk_traj_500_v2.mat", "-struct", "struct_save")
